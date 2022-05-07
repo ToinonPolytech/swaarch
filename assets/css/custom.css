@@ -1,0 +1,10 @@
+#scrapping_button {
+    position:fixed;
+    right:100px;
+    bottom:100px;
+    text-align: center;
+    width: 100px;
+    float: right;
+    z-index: 999;
+    border: 1px solid black;
+}

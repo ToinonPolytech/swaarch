@@ -1,0 +1,101 @@
+{
+  "manifest_version": 3,
+  "name": "Swaarch | Build searches. Warm leads. ",
+  "short_name": "Unicaat",
+  "description": "Scrap companies. Build LinkedIn searches, based on it.",
+  "version": "0.0.1",
+  "permissions": [
+    "tabs",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://*.linkedin.com/*"
+  ],
+  "icons": {
+    "16": "logo_unicat_16px.png",
+    "32": "logo_unicat_32px.png",
+    "48": "logo_unicat_48px.png",
+    "128": "logo_unicat_128px.png" },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "logo_flaticon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "css" : [
+        "./assets/css/custom.css"
+      ],
+      "js": [
+        "./node_modules/jquery/dist/jquery.min.js",
+        "./content_script/ecosystem_frenchtech.js",
+        "./content_script/inject_scrapper_button.js"
+      ],
+
+      "matches": [
+        "https://*.lafrenchtech.com/companies*"
+      ],
+      "run_at":    "document_end"
+    },
+    {
+      "css" : [
+        "./assets/css/custom.css"
+      ],
+      "js": [
+        "./node_modules/jquery/dist/jquery.min.js",
+        "./content_script/extract/observatoire_franchise.js",
+        "./content_script/inject_scrapper_button.js"
+      ],
+
+      "matches": [
+        "https://www.observatoiredelafranchise.fr/*"
+      ],
+      "run_at":    "document_end"
+    },
+    {
+      "js" : [
+        "./content_script/google/googleAPI.js",
+        "./content_script/google/htmlInject.js",
+        "./content_script/google/googleController.js"
+      ],
+      "matches": [
+        "https://explorer.apis.google.com/*"
+      ],
+      "run_at":    "document_end"
+    } ,   {
+      "js" : [
+        "./content_script/linkedin/getCSRFToken.js",
+        "./content_script/linkedin/linkedinController.js"
+      ],
+      "matches": [
+        "https://*.linkedin.com/*"
+      ],
+      "run_at":    "document_end"
+    }, {
+      "js" : [
+        "./content_script/google/googleAPI.js",
+        "./content_script/google/htmlInject.js",
+        "./content_script/google/googleController.js"
+      ],
+      "matches": [
+        "https://explorer.apis.google.com/*"
+      ],
+      "run_at":    "document_end"
+    } ,   {
+      "js" : [
+        "./node_modules/jquery/dist/jquery.min.js",
+        "./content_script/extract/pappers.js"
+
+      ],
+      "matches": [
+        "https://www.pappers.fr/recherche*"
+      ],
+      "run_at":    "document_end"
+    }
+  ],
+
+  "background": {
+    "service_worker": "./background.js"
+  }
+ }

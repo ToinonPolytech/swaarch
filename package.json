@@ -1,0 +1,8 @@
+{
+  "name": "swaarch",
+  "version": "1.0.0",
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "polyfill-library": "^4.0.0"
+  }
+}
