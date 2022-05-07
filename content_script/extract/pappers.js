@@ -16,16 +16,13 @@ function sendResults(results){
     });
 }
 
-
-
-
-
-async function getNumberOfPagesToScrap(){
+function continueToScrap(){
     const availableResultsText = $("#app > div > div.min-height-100vh > div.informations > div.texte-droite.desktop-only > p").text()
 
-    const availableResultsNumber = availableResultsText.split(" / ")[1]
-    const pageToScrap = Math.ceil(availableResultsNumber/20)
-    return pageToScrap
+    const currentPage = availableResultsText.split(" / ")[0]
+    const maxPage = availableResultsText.split(" / ")[1]
+
+    return Number(currentPage.trim())<=Number(maxPage.trim())
 }
 
 async function getUrlToScrap(){
@@ -34,12 +31,20 @@ async function getUrlToScrap(){
     document.querySelector(".pagination .pagination-image-right").click()
 
 }
+async function sleep(ms){
+    return new Promise(resolve => {
+        setTimeout(function(){resolve()},ms);
+    })
+
+}
 let companyResults = []
 async function startScrapping(){
-    let nextButton = $("a.pagination-image-right")
-    while(!nextButton.hasClass("disabled")){
+    let nextButton = $("a.pagination-image-right")[0]
+    console.log(nextButton)
+    while(continueToScrap()){
         await getCompaniesFromDOM()
         nextButton.click()
+        await sleep(500)
     }
     sendResults(companyResults)
 }
